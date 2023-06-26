@@ -1,1 +1,22 @@
 ### paste working code in here
+start_date <- as.POSIXct("2021-05-01",tz="est") #change year,month,day for start
+end_date <-  as.POSIXct("2022-05-01",tz="est") #change yea, month , day for end date 
+
+dates <- seq.POSIXt(start_date,end_date,by="day")
+
+my_dates<-as.integer(unlist(strsplit(as.character(dates),"-")))
+
+my_dates<-array(my_dates,dim=c(3,length(my_dates)/3))
+
+my_dates<-as.data.frame(t(my_dates), )
+
+colnames(my_dates)<-c("year","month","day")
+
+station <- "KNJEAGLE2" #change when your using for a seperate STA
+
+my_i <- for(i in 1:nrow(my_dates)) {
+  
+  myurl[i] <- paste("https://www.wunderground.com/dashboard/pws/KNJEAGLE2/table/2021-05-1/2022-05-1/daily",station,"&day=",my_dates$day[i],"&month=",my_dates$month[i],"&year=",my_dates$year[i],"&graphspan=day&format=1", may = "")
+  folder[i] <- "Z:\\HOBO Data" #change the save to file when on any computer but BBAYRESLAB-01
+  myfile[i] <- paste("WestCreekWeather",i,".csv")
+  download.file(url = myurl[i], file.path(folder, myfile[i], fsep = "\\" ))
