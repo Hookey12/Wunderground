@@ -1,6 +1,6 @@
 ### paste working code in here
 start_date <- as.POSIXct("2021-05-01",tz="est") #change year,month,day for start
-end_date <-  as.POSIXct("2022-05-01",tz="est") #change yea, month , day for end date 
+end_date <-  as.POSIXct("2022-05-01",tz="est") #change year, month , day for end date 
 
 dates <- seq.POSIXt(start_date,end_date,by="day")
 
