@@ -20,3 +20,4 @@ my_i <- for(i in 1:nrow(my_dates)) {
   folder <- "Z:\\HOBO Data" #change the save to file when on any computer but BBAYRESLAB-01
   myfile <- paste("WestCreekWeather",i,".csv")
   download.file(url = myurl[i], file.path(folder, myfile, fsep = "\\" ))
+}
