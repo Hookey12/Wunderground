@@ -16,8 +16,13 @@ station <- "KNJEAGLE2" #change when your using for a seperate STA
 
 my_i <- for(i in 1:nrow(my_dates)) {
   
-  myurl <- paste("https://www.wunderground.com/dashboard/pws/",station,"/table/",my_dates$year[i],"-",my_dates$month[i],"-",my_dates$day[i],"/",my_dates$year[i],"-",my_dates$month[i],"-",my_dates$day[i],"/daily", sep = "")
-  folder <- "C:\\WeatherData" #change the save to file when on any computer but BBAYRESLAB-01
-  myfile <- paste("WestCreekWeather",i,".csv")
-  download.file(url = myurl, file.path(folder, myfile, fsep = "\\" ))
+  url_data <- paste("https://www.wunderground.com/dashboard/pws/",station,"/table/",my_dates$year[i],"-",my_dates$month[i],"-",my_dates$day[i],"/",my_dates$year[i],"-",my_dates$month[i],"-",my_dates$day[i],"/daily", sep = "")
+  css_selector <- "#main-page-content > div > div > div > lib-history > div.history-tabs > lib-history-table > div > div > div > table"
+  table <- url_data %>% 
+    read_html() %>% 
+    html_element(css = css_selector) %>% 
+    html_table()
+  path_out <-  "C:\\WeatherData"
+  filename <- paste("WestCreekWeather",i,".csv")
+  write.table(table, file.path(path_out, filename), sep= ",", row.names=TRUE)
 }
